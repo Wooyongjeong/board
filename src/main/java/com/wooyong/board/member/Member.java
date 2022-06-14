@@ -1,5 +1,8 @@
-package com.wooyong.board.domain;
+package com.wooyong.board.member;
 
+import com.wooyong.board.BaseTimeEntity;
+import com.wooyong.board.comment.Comment;
+import com.wooyong.board.post.Post;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.wooyong.board.domain;
+package com.wooyong.board.member;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

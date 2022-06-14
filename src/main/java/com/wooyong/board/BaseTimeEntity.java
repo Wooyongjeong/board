@@ -1,4 +1,4 @@
-package com.wooyong.board.domain;
+package com.wooyong.board;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;

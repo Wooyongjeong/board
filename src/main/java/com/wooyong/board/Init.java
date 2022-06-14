@@ -1,18 +1,19 @@
 package com.wooyong.board;
 
-import com.wooyong.board.domain.Comment;
-import com.wooyong.board.domain.Member;
-import com.wooyong.board.domain.Post;
+import com.wooyong.board.comment.Comment;
+import com.wooyong.board.member.Member;
+import com.wooyong.board.post.Post;
+import com.wooyong.board.comment.CommentRepository;
+import com.wooyong.board.member.MemberRepository;
+import com.wooyong.board.post.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
-@Profile("local")
+//@Profile("local")
 @Component
 @RequiredArgsConstructor
 public class Init {
@@ -25,9 +26,12 @@ public class Init {
     }
 
     @Component
+    @RequiredArgsConstructor
     static class InitService {
-        @PersistenceContext
-        private EntityManager em;
+
+        private final MemberRepository memberRepository;
+        private final PostRepository postRepository;
+        private final CommentRepository commentRepository;
 
         @Transactional
         public void init() {
@@ -41,19 +45,20 @@ public class Init {
                     .name("memberB")
                     .nickname("memberNicknameB")
                     .build();
-            em.persist(memberA);
-            em.persist(memberB);
+            memberRepository.save(memberA);
+            memberRepository.save(memberB);
 
             Post[] posts = new Post[100];
             for (int i = 0; i < 100; i++) {
                 Member member = i % 2 == 0 ? memberA : memberB;
                 Post post = Post.builder()
                         .member(member)
-                        .title("Title " + i)
-                        .content("content " + i)
+                        .title("Title " + (i + 1))
+                        .content("content " + (i + 1))
                         .build();
                 posts[i] = post;
-                em.persist(post);
+
+                postRepository.save(post);
             }
 
             for (int i = 0; i < 200; i++) {
@@ -63,13 +68,11 @@ public class Init {
                 Comment comment = Comment.builder()
                         .post(post)
                         .member(member)
-                        .comment("comment " + i)
+                        .comment("comment " + (i + 1))
                         .build();
-                em.persist(comment);
+                commentRepository.save(comment);
             }
 
-            em.flush();
-            em.clear();
         }
     }
 }

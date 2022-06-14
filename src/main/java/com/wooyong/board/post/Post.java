@@ -1,5 +1,8 @@
-package com.wooyong.board.domain;
+package com.wooyong.board.post;
 
+import com.wooyong.board.BaseTimeEntity;
+import com.wooyong.board.comment.Comment;
+import com.wooyong.board.member.Member;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -35,11 +38,14 @@ public class Post extends BaseTimeEntity {
 
     private int view;
 
+    private int voteNum;
+
     @Builder
     public Post(Member member, String title, String content) {
         this.member = member;
         this.title = title;
         this.content = content;
         this.view = 0;
+        this.voteNum = 0;
     }
 }

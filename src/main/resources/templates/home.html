@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Board</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+            <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+                Board
+            </a>
+
+            <div class="col-md-3 text-end">
+                <button type="button" class="btn btn-outline-primary me-2">Login</button>
+                <button type="button" class="btn btn-primary">Sign-up</button>
+            </div>
+        </header>
+    </div>
+
+    <div class="container">
+        <table class="table table-hover">
+            <thead>
+                <tr class="text-center">
+                    <th class="col-8">제목</th>
+                    <th class="col-2">글쓴이</th>
+                    <th class="col-2">추천 수</th>
+                    <th class="col-2">날짜</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="post: ${posts}">
+                    <td class="col-8">
+                        <a href="post.html" th:href="@{/posts/{postId}(postId=${post.id})" th:text="${post.title}">
+                            제목
+                        </a>
+                    </td>
+                    <td class="col-2 text-center" th:text="${post.author}">글쓴이</td>
+                    <td class="col-2 text-center text-primary" th:text="${post.voteNum}">0</td>
+                    <td class="col-2 text-center" th:text="${post.createdDate}">2022.06.14</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+</html>
