@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @Getter
@@ -14,7 +15,7 @@ public class PostsDto {
     private String title;
     private String author;
     private int voteNum;
-    private LocalDateTime createdDate;
+    private String createdDate;
 
     @QueryProjection
     public PostsDto(Long id, String title, String author, int voteNum, LocalDateTime createdDate) {
@@ -22,6 +23,11 @@ public class PostsDto {
         this.title = title;
         this.author = author;
         this.voteNum = voteNum;
-        this.createdDate = createdDate;
+        this.createdDate = getDate(createdDate);
     }
+
+    private String getDate(LocalDateTime createdDate) {
+        return createdDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+    }
+
 }
