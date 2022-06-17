@@ -67,7 +67,49 @@
     </div>
 
     <div class="container mb-3">
-
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center"
+                th:with="start = ${T(java.lang.Math).floor(posts.number / 10) * 10 + 1},
+                        end = (${start + 9 < posts.totalPages ? start + 9 : posts.totalPages})">
+                <li class="page-item" th:if="${!posts.first}">
+                    <a class="page-link" th:href="@{/}" aria-label="First">
+                        <span aria-hidden="true">처음으로</span>
+                    </a>
+                </li>
+                <li class="page-item"
+                    th:if="${!posts.first}">
+                    <a class="page-link"
+                       th:href="${posts.first} ? '#' : @{/(page=${posts.number - 2})}"
+                       aria-label="Previous">
+                        <span aria-hidden="true">&lt;</span>
+                    </a>
+                </li>
+                <li th:each="page: ${#numbers.sequence(start, end)}"
+                    class="page-item"
+                    th:classappend="${page == posts.number + 1} ? 'active'">
+                    <a class="page-link"
+                       th:text="${page}"
+                       th:href="@{/(page=${page - 1})}">
+                    </a>
+                </li>
+                <li class="page-item"
+                    th:if="${!posts.last}">
+                    <a class="page-link"
+                        th:href="${posts.last} ? '#' : @{/(page=${posts.number + 2})}"
+                        aria-label="Next">
+                        <span aria-label="true">&gt;</span>
+                    </a>
+                </li>
+                <li class="page-item"
+                    th:if="${!posts.last}">
+                    <a class="page-link"
+                       th:href="@{/(page=${posts.totalPages - 1})}"
+                       aria-label="Last">
+                        <span aria-hidden="true">마지막으로</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
