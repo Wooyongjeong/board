@@ -5,6 +5,7 @@ import com.wooyong.board.post.dto.PostsDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -20,10 +21,11 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Model model,
-                       @PageableDefault(size = 20) Pageable pageable) {
+                       @PageableDefault(page = 1, size = 20) Pageable pageable) {
         log.info("[GET] home");
 
-        Page<PostsDto> posts = postRepository.findPostsPage(pageable);
+        PageRequest pageRequest = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize());
+        Page<PostsDto> posts = postRepository.findPostsPage(pageRequest);
         model.addAttribute("posts", posts);
         return "home";
     }

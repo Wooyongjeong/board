@@ -69,17 +69,12 @@
     <div class="container mb-3">
         <nav aria-label="Page navigation">
             <ul class="pagination justify-content-center"
-                th:with="start = ${T(java.lang.Math).floor(posts.number / 10) * 10 + 1},
-                        end = (${start + 9 < posts.totalPages ? start + 9 : posts.totalPages})">
-                <li class="page-item" th:if="${!posts.first}">
-                    <a class="page-link" th:href="@{/}" aria-label="First">
-                        <span aria-hidden="true">처음으로</span>
-                    </a>
-                </li>
+                th:with="start = (${posts.number - 4 > 0 ? posts.number - 4 : 1}),
+                        end = (${posts.number + 5 < posts.totalPages ? posts.number + 5 : posts.totalPages})">
                 <li class="page-item"
                     th:if="${!posts.first}">
                     <a class="page-link"
-                       th:href="${posts.first} ? '#' : @{/(page=${posts.number - 2})}"
+                       th:href="@{/?page={prevPage} (prevPage=${posts.number - 9 <= 0 ? 1 : posts.number - 8})}"
                        aria-label="Previous">
                         <span aria-hidden="true">&lt;</span>
                     </a>
@@ -89,23 +84,15 @@
                     th:classappend="${page == posts.number + 1} ? 'active'">
                     <a class="page-link"
                        th:text="${page}"
-                       th:href="@{/(page=${page - 1})}">
+                       th:href="@{/(page=${page})}">
                     </a>
                 </li>
                 <li class="page-item"
                     th:if="${!posts.last}">
                     <a class="page-link"
-                        th:href="${posts.last} ? '#' : @{/(page=${posts.number + 2})}"
+                        th:href="@{/?page={nextPage} (nextPage=${posts.number + 9 >= posts.totalPages ? posts.totalPages : posts.number + 10})}"
                         aria-label="Next">
                         <span aria-label="true">&gt;</span>
-                    </a>
-                </li>
-                <li class="page-item"
-                    th:if="${!posts.last}">
-                    <a class="page-link"
-                       th:href="@{/(page=${posts.totalPages - 1})}"
-                       aria-label="Last">
-                        <span aria-hidden="true">마지막으로</span>
                     </a>
                 </li>
             </ul>

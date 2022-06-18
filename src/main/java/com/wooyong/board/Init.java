@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
+import java.util.Arrays;
 
 //@Profile("local")
 @Component
@@ -35,22 +36,29 @@ public class Init {
 
         @Transactional
         public void init() {
-            Member memberA = Member.builder()
+            Member[] members = new Member[3];
+            members[0] = Member.builder()
                     .email("testA@test.com")
                     .name("memberA")
                     .nickname("memberNicknameA")
                     .build();
-            Member memberB = Member.builder()
+            ;
+            members[1] = Member.builder()
                     .email("testB@test.com")
                     .name("memberB")
                     .nickname("memberNicknameB")
                     .build();
-            memberRepository.save(memberA);
-            memberRepository.save(memberB);
+            ;
+            members[2] = Member.builder()
+                    .email("testC@test.com")
+                    .name("memberC")
+                    .nickname("memberNicknameC")
+                    .build();
+            memberRepository.saveAll(Arrays.asList(members));
 
-            Post[] posts = new Post[100];
-            for (int i = 0; i < 100; i++) {
-                Member member = i % 2 == 0 ? memberA : memberB;
+            Post[] posts = new Post[1000];
+            for (int i = 0; i < 1000; i++) {
+                Member member = members[i % 3];
                 Post post = Post.builder()
                         .member(member)
                         .title("Title " + (i + 1))
@@ -61,9 +69,9 @@ public class Init {
                 postRepository.save(post);
             }
 
-            for (int i = 0; i < 200; i++) {
-                Member member = i % 2 != 0 ? memberA : memberB;
-                Post post = posts[i % 100];
+            for (int i = 0; i < 2000; i++) {
+                Member member = members[i % 3];
+                Post post = posts[i % 1000];
 
                 Comment comment = Comment.builder()
                         .post(post)
@@ -72,7 +80,6 @@ public class Init {
                         .build();
                 commentRepository.save(comment);
             }
-
         }
     }
 }
