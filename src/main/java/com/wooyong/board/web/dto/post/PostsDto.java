@@ -1,4 +1,4 @@
-package com.wooyong.board.post.dto;
+package com.wooyong.board.web.dto.post;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.wooyong.board.member;
+package com.wooyong.board.domain.member;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +7,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum Role {
 
-    GUEST("ROLE_GUEST"), USER("ROLE_USER"), ADMIN("ROLE_ADMIN");
+    USER("ROLE_USER", "사용자"),
+    ADMIN("ROLE_ADMIN", "관리자");
 
     private final String key;
+    private final String title;
 }

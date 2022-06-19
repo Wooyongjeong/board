@@ -1,8 +1,8 @@
-package com.wooyong.board.member;
+package com.wooyong.board.domain.member;
 
 import com.wooyong.board.BaseTimeEntity;
-import com.wooyong.board.comment.Comment;
-import com.wooyong.board.post.Post;
+import com.wooyong.board.domain.comment.Comment;
+import com.wooyong.board.domain.post.Post;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,8 +28,8 @@ public class Member extends BaseTimeEntity {
     @Column(nullable = false)
     private String name;
 
-    @Column(unique = true, nullable = false)
-    private String nickname;
+    @Column(nullable = false)
+    private String picture;
 
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
@@ -42,10 +42,22 @@ public class Member extends BaseTimeEntity {
     private List<Comment> comments = new ArrayList<>();
 
     @Builder
-    public Member(String email, String name, String nickname) {
+    public Member(String email, String name, String picture, Role role) {
         this.email = email;
         this.name = name;
-        this.nickname = nickname;
-        this.role = Role.USER;
+        this.picture = picture;
+        this.role = role;
     }
+
+    public Member update(String name, String picture) {
+        this.name = name;
+        this.picture = picture;
+
+        return this;
+    }
+
+    public String getRoleKey() {
+        return this.role.getKey();
+    }
+
 }

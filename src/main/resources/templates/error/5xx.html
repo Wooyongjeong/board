@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header(~{::title})">
+    <title>Error Page</title>
+</head>
+<body>
+<div class="container mt-6">
+    <div class="text-center">
+        <img alt="5xx.png" th:src="@{https://http.cat/${status}}" />
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+</div>
+</body>
+</html>

@@ -1,13 +1,13 @@
 package com.wooyong.board;
 
-import com.wooyong.board.comment.Comment;
-import com.wooyong.board.member.Member;
-import com.wooyong.board.post.Post;
-import com.wooyong.board.comment.CommentRepository;
-import com.wooyong.board.member.MemberRepository;
-import com.wooyong.board.post.PostRepository;
+import com.wooyong.board.domain.comment.Comment;
+import com.wooyong.board.domain.member.Member;
+import com.wooyong.board.domain.member.Role;
+import com.wooyong.board.domain.post.Post;
+import com.wooyong.board.domain.comment.CommentRepository;
+import com.wooyong.board.domain.member.MemberRepository;
+import com.wooyong.board.domain.post.PostRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,19 +40,20 @@ public class Init {
             members[0] = Member.builder()
                     .email("testA@test.com")
                     .name("memberA")
-                    .nickname("memberNicknameA")
+                    .picture("pictureA")
+                    .role(Role.USER)
                     .build();
-            ;
             members[1] = Member.builder()
                     .email("testB@test.com")
                     .name("memberB")
-                    .nickname("memberNicknameB")
+                    .picture("pictureB")
+                    .role(Role.USER)
                     .build();
-            ;
             members[2] = Member.builder()
                     .email("testC@test.com")
                     .name("memberC")
-                    .nickname("memberNicknameC")
+                    .picture("pictureC")
+                    .role(Role.USER)
                     .build();
             memberRepository.saveAll(Arrays.asList(members));
 

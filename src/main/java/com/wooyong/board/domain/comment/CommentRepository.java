@@ -1,6 +1,5 @@
-package com.wooyong.board.comment;
+package com.wooyong.board.domain.comment;
 
-import com.wooyong.board.comment.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {

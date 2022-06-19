@@ -12,8 +12,9 @@ import javax.persistence.EntityManager;
 @SpringBootApplication
 public class BoardApplication {
 	/**
-	 * TODO 게시글 목록 보여주는 controller
-	 * TODO 게시글 목록 paging도 해야겠지?
+	 * TODO 게시글 목록 보여주는 controller ✅
+	 * TODO 게시글 목록 paging도 해야겠지? ✅
+	 * TODO 구글 로그인 OAuth2
 	 * TODO 게시글 상세 보여주는 controller & view & service
 	 * TODO 게시글 쓰기 controller & view & service
 	 * TODO 게시글의 댓글 보여주는 controller & view & service

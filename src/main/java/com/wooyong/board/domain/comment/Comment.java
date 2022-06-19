@@ -1,7 +1,7 @@
-package com.wooyong.board.comment;
+package com.wooyong.board.domain.comment;
 
-import com.wooyong.board.post.Post;
-import com.wooyong.board.member.Member;
+import com.wooyong.board.domain.post.Post;
+import com.wooyong.board.domain.member.Member;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

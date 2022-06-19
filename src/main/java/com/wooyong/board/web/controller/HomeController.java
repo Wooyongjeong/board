@@ -1,7 +1,9 @@
 package com.wooyong.board.web.controller;
 
-import com.wooyong.board.post.PostRepository;
-import com.wooyong.board.post.dto.PostsDto;
+import com.wooyong.board.config.auth.LoginMember;
+import com.wooyong.board.config.auth.dto.SessionMember;
+import com.wooyong.board.domain.post.PostRepository;
+import com.wooyong.board.web.dto.post.PostsDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -21,12 +23,14 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Model model,
+                       @LoginMember SessionMember member,
                        @PageableDefault(page = 1, size = 20) Pageable pageable) {
-        log.info("[GET] home");
+        log.info("[GET] /");
 
         PageRequest pageRequest = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize());
         Page<PostsDto> posts = postRepository.findPostsPage(pageRequest);
         model.addAttribute("posts", posts);
+        model.addAttribute("member", member);
         return "home";
     }
 }

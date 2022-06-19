@@ -1,9 +1,9 @@
-package com.wooyong.board.post;
+package com.wooyong.board.domain.post;
 
 import com.wooyong.board.BaseTimeEntity;
-import com.wooyong.board.comment.Comment;
-import com.wooyong.board.member.Member;
-import com.wooyong.board.post.dto.PostCreateDto;
+import com.wooyong.board.domain.comment.Comment;
+import com.wooyong.board.domain.member.Member;
+import com.wooyong.board.web.dto.post.PostCreateDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -50,11 +50,4 @@ public class Post extends BaseTimeEntity {
         this.voteNum = 0;
     }
 
-    public static Post createPost(Member member, PostCreateDto postCreateDto) {
-        return Post.builder()
-                .member(member)
-                .title(postCreateDto.getTitle())
-                .content(postCreateDto.getContent())
-                .build();
-    }
 }
