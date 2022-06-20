@@ -5,7 +5,7 @@ import com.wooyong.board.domain.member.Member;
 import com.wooyong.board.domain.member.MemberRepository;
 import com.wooyong.board.domain.post.Post;
 import com.wooyong.board.domain.post.PostRepository;
-import com.wooyong.board.web.dto.post.PostCreateDto;
+import com.wooyong.board.web.dto.post.PostCreateUpdateDto;
 import com.wooyong.board.web.dto.post.PostDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,12 +32,29 @@ public class PostService {
     }
 
     @Transactional
-    public Long save(SessionMember sessionMember, PostCreateDto postCreateDto) {
+    public Long save(SessionMember sessionMember, PostCreateUpdateDto postCreateUpdateDto) {
         log.info("save 실행");
 
         Member member = memberRepository.findByEmail(sessionMember.getEmail())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "유저 정보를 찾을 수 없습니다."));
-        Post post = postCreateDto.toEntity(member);
+        Post post = postCreateUpdateDto.toEntity(member);
         return postRepository.save(post).getId();
     }
+
+    public boolean isLoginMemberAuthor(SessionMember sessionMember, PostDto postDto) {
+        String loginMemberEmail = sessionMember.getEmail();
+        String authorEmail = postDto.getAuthorEmail();
+
+        return loginMemberEmail.equals(authorEmail);
+    }
+
+    @Transactional
+    public void updatePost(Long id, PostCreateUpdateDto postCreateUpdateDto) {
+        log.info("update 실행");
+
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 게시글을 찾을 수 없습니다."));
+        post.update(postCreateUpdateDto);
+    }
+
 }

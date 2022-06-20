@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header(~{::title})">
-    <title>Board - 게시글 작성</title>
+    <title>Board - 게시글 수정</title>
 </head>
 <style>
     .fieldError {
@@ -16,7 +16,7 @@
 
 <div class="container mb-3">
     <div>
-        <form action="createForm.html" th:action="@{/posts/new}" th:object="${post}" method="post" enctype="application/x-www-form-urlencoded">
+        <form action="createForm.html" th:action th:object="${post}" method="post" enctype="application/x-www-form-urlencoded">
             <div class="form-group mb-3">
                 <label for="title">제목</label>
                 <input type="text" class="form-control" id="title" th:field="*{title}" placeholder="제목을 입력하세요"
@@ -30,8 +30,8 @@
                 <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="fieldErrorText">Incorrect data</p>
             </div>
             <div class="text-end">
-                <a href="/" role="button" class="btn btn-secondary">취소</a>
-                <button type="submit" class="btn btn-primary" id="btn-save">등록</button>
+                <button class="btn btn-secondary" th:onclick="|history.back()|">취소</button>
+                <button type="submit" class="btn btn-primary" id="btn-save">수정</button>
             </div>
         </form>
     </div>

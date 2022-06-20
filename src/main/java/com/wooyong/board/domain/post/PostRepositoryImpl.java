@@ -53,6 +53,7 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
                             post.title,
                             post.content,
                             member.name,
+                            member.email,
                             member.picture,
                             post.createdDate
                     ))

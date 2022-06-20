@@ -4,12 +4,13 @@
     <title>Error Page</title>
 </head>
 <body>
-<div class="container mt-auto mb-auto">
-    <div class="text-center">
+<div class="container mt-3">
+    <a href="/" class="fs-1 mb-3">홈으로</a>
+    <div class="text-center mb-3">
         <img alt="4xx.png" th:src="@{https://http.cat/${status}}" />
     </div>
 
-    <div class="mt-auto" th:replace="fragments/footer :: footer" />
+    <div th:replace="fragments/footer :: footer" />
 </div>
 </body>
 </html>

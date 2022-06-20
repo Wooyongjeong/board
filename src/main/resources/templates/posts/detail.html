@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header(~{::title})">
+    <title th:text="${post.title}"></title>
+</head>
+<body>
+<div th:replace="~{fragments/bodyHeader :: body_header(${member})}" />
+
+<div class="container mb-3 border">
+    <article class="blog-post">
+        <h2 class="blog-post-title mt-3" th:text="${post.title}"></h2>
+        <div class="border-bottom blog-post-meta row justify-content-between mb-3">
+            <span class="col-4" th:text="${post.createdDate}"></span>
+            <div class="col-4 text-end">
+                <img alt="picture" src="detail.html" th:src="${post.authorPicture}" class="img-thumbnail" style="max-width: 2em;" />
+                <span th:text="${post.author}"></span>
+            </div>
+        </div>
+        <p th:text="${post.content}" class="m-3"></p>
+    </article>
+</div>
+
+<div class="container mb-3 text-end" th:if="${isLoginMemberAuthor}">
+    <a href="detail.html" th:href="@{/posts/edit/{postId} (postId=__${postId}__)}" type="button" class="btn btn-primary">수정</a>
+    <button class="btn btn-danger delete" th:onclick="|deletePost('__${postId}__')|">삭제</button>
+</div>
+
+<div th:replace="fragments/footer :: footer" />
+
+<script th:inline="javascript">
+    function deletePost(postId) {
+        if (confirm('삭제하시겠습니까?')) {
+            const url = `/posts/${postId}`;
+            fetch(url, {
+                method: 'delete',
+                body: null
+            })
+            .then(response => {
+                if (response.status === 200) {
+                    window.location.replace("/");
+                }
+            })
+            .catch(error => {
+                alert(`오류가 발생했습니다.\n${error}`);
+            })
+        }
+    }
+</script>
+</body>
+</html>

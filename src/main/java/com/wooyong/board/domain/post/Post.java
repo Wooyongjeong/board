@@ -3,7 +3,7 @@ package com.wooyong.board.domain.post;
 import com.wooyong.board.BaseTimeEntity;
 import com.wooyong.board.domain.comment.Comment;
 import com.wooyong.board.domain.member.Member;
-import com.wooyong.board.web.dto.post.PostCreateDto;
+import com.wooyong.board.web.dto.post.PostCreateUpdateDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -50,4 +50,8 @@ public class Post extends BaseTimeEntity {
         this.voteNum = 0;
     }
 
+    public void update(PostCreateUpdateDto postCreateUpdateDto) {
+        this.title = postCreateUpdateDto.getTitle();
+        this.content = postCreateUpdateDto.getContent();
+    }
 }

@@ -29,8 +29,8 @@ public class HomeController {
 
         PageRequest pageRequest = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize());
         Page<PostsDto> posts = postRepository.findPostsPage(pageRequest);
-        model.addAttribute("posts", posts);
         model.addAttribute("member", member);
+        model.addAttribute("posts", posts);
         return "home";
     }
 }

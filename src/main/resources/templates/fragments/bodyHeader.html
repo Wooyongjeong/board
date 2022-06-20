@@ -1,10 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<style>
-    .pic {
-        width: 1em;
-    }
-</style>
 <div class="container mb-3" th:fragment="body_header(member)">
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
         <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 fs-2 text-dark text-decoration-none">
@@ -17,7 +12,7 @@
         </div>
         <div th:if="${member != null}">
             <span class="text-end">
-                <img alt="picture.png" th:src="${member.picture}" class="img-thumbnail pic"/>
+                <img alt="picture.png" th:src="${member.picture}" class="img-thumbnail" style="max-width: 3em;" />
                 <span class="fw-bolder">[[${member.name}]]</span>님, 어서오세요
             </span>
             <a th:href="@{/logout}" type="button" class="btn btn-outline-primary me-2">로그아웃</a>
