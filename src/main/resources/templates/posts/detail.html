@@ -8,10 +8,10 @@
 
 <div class="container mb-3 border">
     <article class="blog-post">
-        <h2 class="blog-post-title mt-3" th:text="${post.title}"></h2>
+        <h2 class="blog-post-title mt-3 ms-3" th:text="${post.title}"></h2>
         <div class="border-bottom blog-post-meta row justify-content-between mb-3">
-            <span class="col-4" th:text="${post.createdDate}"></span>
-            <div class="col-4 text-end">
+            <span class="col-4 ms-4" th:text="${post.createdDate}"></span>
+            <div class="col-4 text-end me-4">
                 <img alt="picture" src="detail.html" th:src="${post.authorPicture}" class="img-thumbnail" style="max-width: 2em;" />
                 <span th:text="${post.author}"></span>
             </div>
@@ -35,13 +35,15 @@
                 method: 'delete',
                 body: null
             })
+            .then(response => response.json())
             .then(response => {
-                if (response.status === 200) {
+                if (response.code === 200) {
+                    alert(response.message);
                     window.location.replace("/");
                 }
             })
             .catch(error => {
-                alert(`오류가 발생했습니다.\n${error}`);
+                alert(error.message);
             })
         }
     }

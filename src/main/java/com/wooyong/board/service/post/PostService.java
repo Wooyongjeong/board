@@ -42,13 +42,24 @@ public class PostService {
     }
 
     public boolean isLoginMemberAuthor(SessionMember sessionMember, PostDto postDto) {
+        log.info("isLoginMemberAuthor 실행");
+
         String loginMemberEmail = sessionMember.getEmail();
         String authorEmail = postDto.getAuthorEmail();
 
         return loginMemberEmail.equals(authorEmail);
     }
 
-    @Transactional
+    public boolean isLoginMemberAuthor(SessionMember sessionMember, Post post) {
+        log.info("isLoginMemberAuthor 실행");
+
+        String loginMemberEmail = sessionMember.getEmail();
+        String authorEmail = post.getMember().getEmail();
+
+        return loginMemberEmail.equals(authorEmail);
+    }
+
+        @Transactional
     public void updatePost(Long id, PostCreateUpdateDto postCreateUpdateDto) {
         log.info("update 실행");
 
