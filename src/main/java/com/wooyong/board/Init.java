@@ -71,14 +71,21 @@ public class Init {
                 postRepository.save(post);
             }
 
-            for (int i = 0; i < 2000; i++) {
+            String[] comments = {
+                    "BTS brought me here💜💜",
+                    "ㅅㅏ과ㅌㅣㅂㅣ 수위 실화냐???",
+                    "She is Chinese",
+                    "찐이다 올려",
+                    "고정 부탁드려요❤"
+            };
+            for (int i = 0; i < 10000; i++) {
                 Member member = members[i % 3];
                 Post post = posts[i % 1000];
 
                 Comment comment = Comment.builder()
                         .post(post)
                         .member(member)
-                        .comment("comment " + (i + 1))
+                        .content(comments[i % 5])
                         .build();
                 commentRepository.save(comment);
             }

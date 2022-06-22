@@ -1,5 +1,6 @@
 package com.wooyong.board.domain.comment;
 
+import com.wooyong.board.BaseTimeEntity;
 import com.wooyong.board.domain.post.Post;
 import com.wooyong.board.domain.member.Member;
 import lombok.AccessLevel;
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Comment {
+public class Comment extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,12 +30,12 @@ public class Comment {
 
     @Lob
     @Column(nullable = false)
-    private String comment;
+    private String content;
 
     @Builder
-    public Comment(Post post, Member member, String comment) {
+    public Comment(Post post, Member member, String content) {
         this.post = post;
         this.member = member;
-        this.comment = comment;
+        this.content = content;
     }
 }

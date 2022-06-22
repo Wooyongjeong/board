@@ -11,8 +11,6 @@ import org.springframework.data.domain.PageRequest;
 
 import javax.transaction.Transactional;
 
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -26,7 +24,7 @@ class PostRepositoryTest {
     @DisplayName("PostsDto Page 가져오기 테스트")
     public void findPostsPage() throws Exception {
         PageRequest pageRequest = PageRequest.of(0, 20);
-        Page<PostsDto> result = postRepository.findPostsPage(pageRequest);
+        Page<PostsDto> result = postRepository.findPostsDtoPage(pageRequest);
 
         assertThat(result.getTotalElements()).isEqualTo(100);
         assertThat(result.getContent().size()).isEqualTo(20);

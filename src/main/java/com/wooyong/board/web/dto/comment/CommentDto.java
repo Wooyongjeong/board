@@ -1,28 +1,24 @@
-package com.wooyong.board.web.dto.post;
+package com.wooyong.board.web.dto.comment;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+@ToString(of = {"content", "author", "createdDate"})
 @Data
-public class PostDto {
+public class CommentDto {
 
-    private String title;
     private String content;
     private String author;
-    private String authorEmail;
-    private String authorPicture;
     private String createdDate;
 
     @QueryProjection
-    public PostDto(String title, String content, String author, String authorEmail, String authorPicture, LocalDateTime createdDate) {
-        this.title = title;
+    public CommentDto(String content, String author, LocalDateTime createdDate) {
         this.content = content;
         this.author = author;
-        this.authorEmail = authorEmail;
-        this.authorPicture = authorPicture;
         this.createdDate = getDate(createdDate);
     }
 

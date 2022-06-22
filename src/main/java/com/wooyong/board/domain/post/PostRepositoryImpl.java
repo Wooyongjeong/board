@@ -23,7 +23,7 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Page<PostsDto> findPostsPage(Pageable pageable) {
+    public Page<PostsDto> findPostsDtoPage(Pageable pageable) {
         List<PostsDto> content = queryFactory
                 .select(new QPostsDto(
                         post.id,
@@ -32,7 +32,7 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
                         post.voteNum,
                         post.createdDate))
                 .from(post)
-                .leftJoin(post.member, member)
+                .join(post.member, member)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .orderBy(post.createdDate.desc())
@@ -58,7 +58,7 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
                             post.createdDate
                     ))
                     .from(post)
-                    .leftJoin(post.member, member)
+                    .join(post.member, member)
                     .where(post.id.eq(id))
                     .fetchOne());
     }
