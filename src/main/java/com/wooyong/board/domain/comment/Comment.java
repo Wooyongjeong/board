@@ -7,8 +7,13 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -32,10 +37,42 @@ public class Comment extends BaseTimeEntity {
     @Column(nullable = false)
     private String content;
 
+    @Column(nullable = false)
+    private boolean deleted;
+
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "parent_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Comment parent;
+
+    @OneToMany(mappedBy = "parent", orphanRemoval = true)
+    private List<Comment> children = new ArrayList<>();
+
     @Builder
-    public Comment(Post post, Member member, String content) {
+    public Comment(Post post, Member member, String content, Comment parent) {
         this.post = post;
         this.member = member;
         this.content = content;
+        this.parent = parent;
+    }
+
+    public Optional<Comment> findDeletableComment() {
+        return hasChildren() ? Optional.empty() : Optional.of(findDeletableCommentByParent());
+    }
+
+    public void delete() {
+        this.deleted = true;
+    }
+
+    private Comment findDeletableCommentByParent() {
+        return isDeletableParent() ? getParent().findDeletableCommentByParent() : this;
+    }
+
+    private boolean hasChildren() {
+        return getChildren().size() != 0;
+    }
+
+    public boolean isDeletableParent() {
+        return getParent() != null && getParent().isDeleted() && getParent().getChildren().size() == 1;
     }
 }

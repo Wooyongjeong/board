@@ -1,4 +1,4 @@
-package com.wooyong.board.web.controller;
+package com.wooyong.board.web.controller.post;
 
 import com.wooyong.board.config.auth.LoginMember;
 import com.wooyong.board.config.auth.dto.SessionMember;

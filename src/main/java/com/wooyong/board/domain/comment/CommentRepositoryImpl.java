@@ -16,6 +16,19 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
+    public List<Comment> findCommentsByPostId(Long postId) {
+        return queryFactory
+                .selectFrom(comment)
+                .leftJoin(comment.post)
+                .fetchJoin()
+                .where(comment.post.id.eq(postId))
+                .orderBy(
+                        comment.parent.id.asc().nullsFirst(),
+                        comment.createdDate.asc())
+                .fetch();
+    }
+
+    @Override
     public List<CommentDto> findCommentDtoListByPostId(Long postId) {
         return queryFactory
                 .select(new QCommentDto(

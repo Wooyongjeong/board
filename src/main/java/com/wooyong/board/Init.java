@@ -86,6 +86,7 @@ public class Init {
                         .post(post)
                         .member(member)
                         .content(comments[i % 5])
+                        .parent(null)
                         .build();
                 commentRepository.save(comment);
             }
