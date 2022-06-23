@@ -56,23 +56,7 @@ public class Comment extends BaseTimeEntity {
         this.parent = parent;
     }
 
-    public Optional<Comment> findDeletableComment() {
-        return hasChildren() ? Optional.empty() : Optional.of(findDeletableCommentByParent());
-    }
-
-    public void delete() {
-        this.deleted = true;
-    }
-
-    private Comment findDeletableCommentByParent() {
-        return isDeletableParent() ? getParent().findDeletableCommentByParent() : this;
-    }
-
-    private boolean hasChildren() {
-        return getChildren().size() != 0;
-    }
-
-    public boolean isDeletableParent() {
-        return getParent() != null && getParent().isDeleted() && getParent().getChildren().size() == 1;
+    public void changeDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 }

@@ -63,7 +63,7 @@ public class Init {
                 Member member = members[i % 3];
                 Post post = Post.builder()
                         .member(member)
-                        .title("Title " + (i + 1))
+                        .title("제목 [" + (i + 1) + "]번 입니다.")
                         .content(content)
                         .build();
                 posts[i] = post;
@@ -78,17 +78,44 @@ public class Init {
                     "찐이다 올려",
                     "고정 부탁드려요❤"
             };
-            for (int i = 0; i < 10000; i++) {
-                Member member = members[i % 3];
-                Post post = posts[i % 1000];
 
-                Comment comment = Comment.builder()
+            for (Post post : posts) {
+                Comment comment1 = Comment.builder()
                         .post(post)
-                        .member(member)
-                        .content(comments[i % 5])
+                        .member(members[0])
+                        .content(comments[0])
                         .parent(null)
                         .build();
-                commentRepository.save(comment);
+                Comment comment1_1 = Comment.builder()
+                        .post(post)
+                        .member(members[1])
+                        .content(comments[1])
+                        .parent(comment1)
+                        .build();
+                Comment comment1_1_1 = Comment.builder()
+                        .post(post)
+                        .member(members[2])
+                        .content(comments[2])
+                        .parent(comment1_1)
+                        .build();
+                Comment comment2 = Comment.builder()
+                        .post(post)
+                        .member(members[1])
+                        .content(comments[3])
+                        .parent(null)
+                        .build();
+                Comment comment2_1 = Comment.builder()
+                        .post(post)
+                        .member(members[2])
+                        .content(comments[4])
+                        .parent(comment2)
+                        .build();
+
+                commentRepository.save(comment1);
+                commentRepository.save(comment2);
+                commentRepository.save(comment1_1);
+                commentRepository.save(comment2_1);
+                commentRepository.save(comment1_1_1);
             }
         }
     }
