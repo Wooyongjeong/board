@@ -44,6 +44,10 @@ public class PostService {
     public boolean isLoginMemberAuthor(SessionMember sessionMember, PostDto postDto) {
         log.info("isLoginMemberAuthor 실행");
 
+        if (sessionMember == null) {
+            return false;
+        }
+
         String loginMemberEmail = sessionMember.getEmail();
         String authorEmail = postDto.getAuthorEmail();
 

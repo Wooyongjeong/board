@@ -17,8 +17,4 @@ public class CommentController {
     private final CommentService commentService;
     private final CommentRepository commentRepository;
 
-    @GetMapping("/comments")
-    public List<CommentDto> comments(@RequestParam(value = "post") Long postId) {
-        return commentService.findCommentDtoListByPostId(postId);
-    }
 }

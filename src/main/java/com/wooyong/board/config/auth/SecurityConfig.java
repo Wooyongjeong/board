@@ -2,6 +2,7 @@ package com.wooyong.board.config.auth;
 
 import com.wooyong.board.domain.member.Role;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -20,7 +21,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .authorizeRequests()
                     .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**").permitAll()
-                    .antMatchers("/posts/new").hasRole(Role.USER.name())
+                    .antMatchers(HttpMethod.GET, "/posts/{id}").permitAll()
+                    .antMatchers("/posts/new", "/posts/edit/{id}").hasRole(Role.USER.name())
                     .anyRequest().authenticated()
                 .and()
                     .logout()

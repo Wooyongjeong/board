@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 import static com.wooyong.board.domain.comment.QComment.comment;
+import static com.wooyong.board.domain.post.QPost.*;
 
 @RequiredArgsConstructor
 public class CommentRepositoryImpl implements CommentRepositoryCustom {
@@ -16,8 +17,7 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom {
     public List<Comment> findCommentsByPostId(Long postId) {
         return queryFactory
                 .selectFrom(comment)
-                .leftJoin(comment.post)
-                .fetchJoin()
+                .join(comment.post, post).fetchJoin()
                 .where(comment.post.id.eq(postId))
                 .orderBy(
                         comment.parent.id.asc().nullsFirst(),
